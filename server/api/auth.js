@@ -5,6 +5,6 @@ const app = express();
 app.use(express.json());
 app.use(authRoutes);
 
-export default (req, res) => {
-    app(req, res); // Vercel wraps Express like this
-};
+export default function handler(req, res) {
+    app(req, res);
+}
