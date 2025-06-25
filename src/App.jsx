@@ -1,7 +1,6 @@
-import React, {useState} from 'react';
-import { login } from './auth';
+import React, { useState } from 'react';
 
-function App(){
+function App() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
@@ -11,7 +10,7 @@ function App(){
     event.preventDefault();
 
     const user = await login(email, password);
-    if (user){
+    if (user) {
       setIsLoggedIn(true);
       setMessage(`Login successful! Welcome back ${user.email}`);
     } else {
@@ -19,11 +18,11 @@ function App(){
     }
   }
 
-  return  (
+  return (
     <div>
       <h1>Login</h1>
 
-      { !isLoggedIn && (
+      {!isLoggedIn && (
         <form onSubmit={handleLogin}>
           <div>
             <label>Email:</label>
@@ -46,7 +45,7 @@ function App(){
           <button type="submit">Login</button>
         </form>
       )}
-      { message !== '' && (
+      {message !== '' && (
         <p>{message}</p>
       )}
     </div>
