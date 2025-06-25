@@ -1,14 +1,12 @@
 import express from 'express';
-import authRoutes from '../routes/index.js';
+import { register } from '../../src/handlers/auth/registration.js';
+import { passwordReset } from '../../src/handlers/auth/passwordReset.js';
+import { login } from '../../src/handlers/auth/login.js';
 
-const app = express();
-app.use(express.json());
-app.use(authRoutes);
+const router = express.Router();
 
-app.get('/ping', (req, res) => {
-    res.status(200).json({ message: 'Serverless is working!' });
-});
-
-export default function handler(req, res) {
-    app(req, res);
-}
+// Registration route
+router.post('/api/auth/register', register);
+router.post('/api/auth/reset-password', passwordReset);
+router.post('/api/auth/login', login)
+export default router;
