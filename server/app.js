@@ -7,7 +7,7 @@ import authRoute from './routes/index.js'
 app.use(express.json())
 app.use(authRoute)
 
-export default app;
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 })
+export default app;
