@@ -1,7 +1,7 @@
-import { auth } from '../firebase.js';
+import { auth } from '../../firebase';
 import { sendPasswordResetEmail } from 'firebase/auth';
 
-export async function passwordReset (req, res) {
+export async function passwordReset(req, res) {
     const { email } = req.body;
     if (!email) return res.status(400).json({ error: 'Email is required' });
 
