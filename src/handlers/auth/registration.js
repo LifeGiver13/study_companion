@@ -1,5 +1,5 @@
 import { db } from '../../firebase.js';
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcrypt';
 import { collection, where, addDoc, query, getDocs } from 'firebase/firestore';
 
 export async function register(req, res) {
