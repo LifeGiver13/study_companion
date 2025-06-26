@@ -1,4 +1,4 @@
-import app from './server/app.js'
+import app from "./server/app.js"
 
 const PORT = 3000
 app.listen(PORT, () => {
