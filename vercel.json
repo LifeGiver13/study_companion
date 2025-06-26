@@ -6,13 +6,10 @@
             "use": "@vercel/node"
         }
     ],
-    "includeFiles": [
-        "server/**"
-    ],
     "routes": [
         {
-            "src": "/(.*)",
-            "dest": "api/index.js"
+            "src": "/api/(.*)",
+            "dest": "/api/index.js"
         }
     ]
 }
