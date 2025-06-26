@@ -1,9 +1,9 @@
 import express from 'express';
-import authRoute from '../server/routes/index.js';
+import authRoutes from './routes/index.js';
 
 const app = express();
 
 app.use(express.json());
-app.use('/api', authRoute);
+app.use('/api', authRoutes);
 
 export default app;

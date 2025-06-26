@@ -6,7 +6,7 @@ import { passwordReset } from '../../src/handlers/auth/passwordReset.js';
 const router = express.Router();
 
 router.get('/', (req, res) => {
-    res.send('Hello from API!')
+    res.send('API is live');
 });
 
 router.post('/auth/register', register);

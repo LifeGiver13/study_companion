@@ -6,9 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "start": "node server/app.js",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start": "node server/app.js"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
@@ -16,8 +15,7 @@
     "firebase": "^11.9.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "react-router-dom": "^7.6.2",
-    "serverless-http": "^3.2.0"
+    "react-router-dom": "^7.6.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",
@@ -33,15 +31,10 @@
   "optionalDependencies": {
     "@rollup/rollup-linux-x64-gnu": "x.x.x"
   },
-  "description": "This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.",
-  "main": "server/app.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Ayu-Digital-Ltd/amc-study-companion-web-ui.git"
+    "url": "https://github.com/Ayu-Digital-Ltd/amc-study-companion-web-ui.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "bugs": {
     "url": "https://github.com/Ayu-Digital-Ltd/amc-study-companion-web-ui/issues"
   },
