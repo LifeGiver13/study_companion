@@ -1,13 +1,10 @@
 import express from 'express'
-const app = express()
-const port = 3000
-
 import authRoute from './routes/index.js'
+
+const app = express()
+
 
 app.use(express.json())
 app.use(authRoute)
 
-app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`)
-})
 export default app;
