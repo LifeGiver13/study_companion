@@ -2,13 +2,15 @@ import express from 'express';
 import authRoutes from './routes/index.js';
 
 const app = express();
+const port = process.env.PORT || 3001;
 
 app.use(express.json());
 app.use('/api', authRoutes);
 
-if (process.env.RENDER === 'true' || process.env.NODE_ENV !== 'production') {
+if (process.env.RENDER === 'true' || process.env.VERCEL !== '1') {
     app.listen(port, () => {
-        console.log(`Server is running in development mode on port ${port}`);
-    })
+        console.log(`Server running on port ${port}`);
+    });
 }
+
 export default app;
