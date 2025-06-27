@@ -30,9 +30,6 @@
     "globals": "^16.0.0",
     "vite": "^6.3.5"
   },
-  "optionalDependencies": {
-    "@rollup/rollup-linux-x64-gnu": ""
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/Ayu-Digital-Ltd/amc-study-companion-web-ui.git"
