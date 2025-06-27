@@ -1,15 +1,20 @@
-import { auth } from '../firebase.js';
-import { sendPasswordResetEmail } from 'firebase/auth';
+import { auth } from "../../../firebase-admin";
 
-export async function passwordReset (req, res) {
+export async function passwordReset(req, res) {
     const { email } = req.body;
-    if (!email) return res.status(400).json({ error: 'Email is required' });
+    if (!email) {
+        return res.status(400).json({ error: 'Email is required' });
+    }
 
     try {
-        await sendPasswordResetEmail(auth, email);
-        res.status(200).json({ message: 'Password reset email sent' });
+        // Admin SDK provides this method
+        const link = await auth.generatePasswordResetLink(email);
+
+        // Optionally, send the link yourself via a custom email service
+        // Or just respond with the link for debugging
+        return res.status(200).json({ message: 'Password reset link generated', link });
     } catch (error) {
-        console.error('Error sending reset email:', error.message);
-        res.status(500).json({ error: 'Failed to send password reset email' });
+        console.error('Error generating password reset link:', error.message);
+        return res.status(500).json({ error: 'Failed to generate password reset link' });
     }
 }
