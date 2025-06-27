@@ -31,7 +31,7 @@
     "vite": "^6.3.5"
   },
   "optionalDependencies": {
-    "@rollup/rollup-linux-x64-gnu": "x.x.x"
+    "@rollup/rollup-linux-x64-gnu": ""
   },
   "repository": {
     "type": "git",
