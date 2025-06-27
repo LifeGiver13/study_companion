@@ -1,10 +1,9 @@
-import { db } from '../firebase.js';
+import { db } from '../../../firebase-admin';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import bcrypt from 'bcrypt';
 
 
-// Route to handle user login
- export async function login (req, res) {
+export async function login(req, res) {
   try {
     const { username, password } = req.body;
 
@@ -13,7 +12,7 @@ import bcrypt from 'bcrypt';
     }
 
     const userQuery = query(collection(db, 'users'), where('username',
-'==', username));
+      '==', username));
     const querySnapshot = await getDocs(userQuery);
 
     if (querySnapshot.empty) {
@@ -33,8 +32,10 @@ import bcrypt from 'bcrypt';
       return res.status(401).json({ error: 'Invalid username or password' });
     }
 
-    return res.status(200).json({ message: 'Login successful', user:
-userData, uid: userDocId });
+    return res.status(200).json({
+      message: 'Login successful', user:
+        userData, uid: userDocId
+    });
 
   } catch (error) {
     console.error('Error during login:', error.message);
