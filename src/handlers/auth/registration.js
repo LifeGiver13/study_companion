@@ -1,4 +1,4 @@
-import { db } from '../../../firebase-admin';
+import { db } from '../firebase';
 import bcrypt from 'bcrypt';
 import { collection, where, addDoc, query, getDocs } from 'firebase/firestore';
 

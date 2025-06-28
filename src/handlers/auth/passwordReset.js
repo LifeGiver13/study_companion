@@ -1,5 +1,4 @@
-import { auth } from "../../../firebase-admin";
-
+import { auth } from "../firebase";
 export async function passwordReset(req, res) {
     const { email } = req.body;
     if (!email) {
