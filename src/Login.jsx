@@ -16,10 +16,29 @@ export default function LoginForm() {
         setUserType((prev) => (prev === 'Student' ? 'Admin' : 'Student'));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         console.log('Form submitted:', { userType, ...formData });
-        // Send data to your backend/API
+
+        try{
+            const response = await fetch('https://gce-companion.vercel.app/api/auth/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ userType, ...formData })
+            });
+            if (!response.ok){
+                throw new Error('Login failed');
+            }
+
+            const data = await response.json();
+            localStorage.setItem('user', JSON.stringify(data));
+            console.log('Login successful:', data);
+        } catch (error) {
+            console.error('Error during login:', error);
+        }
+
     };
 
     return (
