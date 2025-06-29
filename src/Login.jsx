@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import './LoginForm.css'; // Optional: style it to your taste
+import './Forms.css';
 
 export default function LoginForm() {
     const [userType, setUserType] = useState('Student');
     const [formData, setFormData] = useState({
         username: '',
-        email: '',
         password: ''
     });
 
@@ -36,14 +35,7 @@ export default function LoginForm() {
                     onChange={handleChange}
                     required
                 />
-                <input
-                    type="email"
-                    name="email"
-                    placeholder="Email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                />
+
                 <input
                     type="password"
                     name="password"
