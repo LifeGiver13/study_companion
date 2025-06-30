@@ -1,9 +1,8 @@
-// src/ForgotPassword.jsx
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 
-import '../Forms.css';
+import '../styles/Forms.css';
 
 export default function ForgotPassword() {
     const [email, setEmail] = useState('');
