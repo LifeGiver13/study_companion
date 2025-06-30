@@ -8,7 +8,7 @@ export default function SignUpForm() {
     const [formData, setFormData] = useState({
         username: '',
         email: '',
-        phoneNumber:'',
+        phoneNumber: '',
         password: ''
     });
     const handleChange = (e) => {
@@ -19,17 +19,17 @@ export default function SignUpForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('Form submitted:', {...formData });
+        console.log('Form submitted:', { ...formData });
 
-        try{
+        try {
             const response = await fetch('https://gce-companion.vercel.app/api/auth/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({...formData })
+                body: JSON.stringify({ ...formData })
             });
-            if (!response.ok){
+            if (!response.ok) {
                 throw new Error('Registration Failed failed');
             }
 
@@ -43,77 +43,84 @@ export default function SignUpForm() {
     };
 
     return (
-        <div className="auth-container">
-            <h2>Admin Sign Up</h2>
-            <p>Sign Up to GCE Study Companion</p>
-            <form onSubmit={handleSubmit} className="auth-form">
-                  <i className="fas fa-user"></i>
+        <div className="auth-wrapper">
 
-                <input
-                    type="text"
-                    name="username"
-                    placeholder="Username"
-                    value={formData.username}
-                    onChange={handleChange}
-                    required
-                />
-                                <input
-                    type="email"
-                    name="email"
-                    placeholder="Email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                />
-                <input
-                    type="tel"
-                    name="phoneNumber"
-                    placeholder="Phone Number"
-                    value={formData.phoneNumber}
-                    onChange={handleChange}
-                    required
-                />
+            <div className="auth-container">
+                <h2>Admin Sign Up</h2>
+                <p>Sign Up to GCE Study Companion</p>
+                <form onSubmit={handleSubmit} className="auth-form">
+                    <i className="fas fa-user"></i>
 
-                <input
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    value={formData.password}
-                    onChange={handleChange}
-                    required
-                />
+                    <input
+                        type="text"
+                        name="username"
+                        placeholder="Username"
+                        value={formData.username}
+                        onChange={handleChange}
+                        required
+                    />
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="Email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
+                    />
+                    <input
+                        type="tel"
+                        name="phoneNumber"
+                        placeholder="Phone Number"
+                        value={formData.phoneNumber}
+                        onChange={handleChange}
+                        required
+                    />
 
-                <input
-                    type="password"
-                    name="password"
-                    placeholder=" Confirm Password"
-                    value={formData.password}
-                    onChange={handleChange}
-                    required
-                />
-                <button type="submit">Sign Up</button>
-            </form>
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Password"
+                        value={formData.password}
+                        onChange={handleChange}
+                        required
+                    />
 
-            <div className="social-login">
-                <p>Or sign in with</p>
-<div className="social-buttons">
-  <button className="facebook">
-    <i className="bi bi-facebook" style={{ color: '#3b5998', fontSize: '24px' }}></i>
-  </button>
-  <button className="google">
-    <i className="bi bi-google" style={{ color: '#db4437', fontSize: '24px' }}></i>
-  </button>
-  <button className="linkedin">
-    <i className="bi bi-linkedin" style={{ color: '#0A66C2', fontSize: '24px' }}></i>
-  </button>
-</div>
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder=" Confirm Password"
+                        value={formData.password}
+                        onChange={handleChange}
+                        required
+                    />
+                    <button type="submit">Sign Up</button>
+                </form>
+
+                <div className="social-login">
+                    <p>Or sign in with</p>
+                    <div className="social-buttons">
+                        <button className="facebook">
+                            <i className="bi bi-facebook" style={{ color: '#3b5998', fontSize: '24px' }}></i>
+                        </button>
+                        <button className="google">
+                            <i className="bi bi-google" style={{ color: '#db4437', fontSize: '24px' }}></i>
+                        </button>
+                        <button className="linkedin">
+                            <i className="bi bi-linkedin" style={{ color: '#0A66C2', fontSize: '24px' }}></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div className="signup-note">
+                    <Link to='/'>Already have an account? <i>Login</i></Link>
+                </div>
+
             </div>
 
-            <div className="signup-note">
-                <Link to='/'>Already have an account? <i>Login</i></Link>
+            <div className="auth-image">
+                <img src="/wind.png" alt="Study Ompanion" />
             </div>
-
-        </div>
+        </div >
     );
 };
 
