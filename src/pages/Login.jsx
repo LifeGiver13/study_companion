@@ -41,7 +41,17 @@ export default function LoginForm() {
                 throw new Error(data.error || 'Login failed');
             }
 
-            localStorage.setItem('user', JSON.stringify(data.username, data.email));
+            // Build the structured object
+            const userPayload = {
+                status: 200,
+                data: {
+                    username: data.user.username,
+                    email: data.user.email
+                }
+            };
+
+            localStorage.setItem('user', JSON.stringify(userPayload));
+            localStorage.setItem('isLoggedIn', 'true');
             setSuccess('Login successful!');
         } catch (err) {
             setError(err.message);
@@ -49,6 +59,7 @@ export default function LoginForm() {
             setLoading(false);
         }
     };
+
 
     return (
         <div className="auth-wrapper">
