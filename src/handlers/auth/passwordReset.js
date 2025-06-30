@@ -6,11 +6,8 @@ export async function passwordReset(req, res) {
     }
 
     try {
-        // Admin SDK provides this method
         const link = await auth.generatePasswordResetLink(email);
 
-        // Optionally, send the link yourself via a custom email service
-        // Or just respond with the link for debugging
         return res.status(200).json({ message: 'Password reset link generated', link });
     } catch (error) {
         console.error('Error generating password reset link:', error.message);

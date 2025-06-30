@@ -1,11 +1,15 @@
-import React from "react";
-import LoginForm from "./Login.jsx";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import LoginForm from './pages/Login';
+import ForgotPassword from './pages/ForgotPassword';
 
 export default function App() {
     return (
-        <div className="app-container">
-            <h1>GCE Study Companion</h1>
-            <LoginForm />
-        </div>
+        <Router>
+            <Routes>
+                <Route path="/" element={<LoginForm />} />
+                <Route path="/forgot-password" element={<ForgotPassword />} />
+            </Routes>
+        </Router>
     );
-}
+};
+
