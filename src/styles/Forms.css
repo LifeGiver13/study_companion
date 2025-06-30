@@ -46,10 +46,6 @@ body {
 }
 
 .auth-form {
-<<<<<<< HEAD
-    max-width: 400px;
-=======
->>>>>>> 52a813421612152e52f6dc7f870a5b86fc8192d9
     margin: 0 auto;
     padding: 2rem;
 }
@@ -133,14 +129,9 @@ button[type="submit"]:hover {
     font-weight: 500;
 }
 
-<<<<<<< HEAD
-.social-buttons:hover {
-    transform: matrix(2, 3);
-=======
 .social-buttons button:hover {
     transform: scale(1.05);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
->>>>>>> 52a813421612152e52f6dc7f870a5b86fc8192d9
 }
 
 .signup-note {
