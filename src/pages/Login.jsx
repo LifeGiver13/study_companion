@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import './Forms.css';
+import '../styles/Forms.css';
+import { Link } from 'react-router-dom';
 
 export default function LoginForm() {
     const [userType, setUserType] = useState('Student');
@@ -20,7 +21,7 @@ export default function LoginForm() {
         e.preventDefault();
         console.log('Form submitted:', { userType, ...formData });
 
-        try{
+        try {
             const response = await fetch('https://gce-companion.vercel.app/api/auth/login', {
                 method: 'POST',
                 headers: {
@@ -28,7 +29,7 @@ export default function LoginForm() {
                 },
                 body: JSON.stringify({ userType, ...formData })
             });
-            if (!response.ok){
+            if (!response.ok) {
                 throw new Error('Login failed');
             }
 
@@ -42,10 +43,10 @@ export default function LoginForm() {
     };
 
     return (
-        <div className="login-container">
+        <div className="auth-container">
             <h2>{userType} Login</h2>
             <p>Log in to GCE Study Companion</p>
-            <form onSubmit={handleSubmit} className="login-form">
+            <form onSubmit={handleSubmit} className="auth-form">
                 <input
                     type="text"
                     name="username"
@@ -69,19 +70,25 @@ export default function LoginForm() {
                 <button type="submit">Get Started</button>
             </form>
 
-            <div className="social-login">
+            <div className="social-auth">
                 <p>Or sign in with</p>
                 <div className="social-buttons">
-                    <button className="facebook">f</button>
-                    <button className="google">G</button>
-                    <button className="linkedin">in</button>
+                    <button className="facebook">
+                        <i className="bi bi-facebook" style={{ color: '#3b5998', fontSize: '24px' }}></i>
+                    </button>
+                    <button className="google">
+                        <i className="bi bi-google" style={{ color: '#db4437', fontSize: '24px' }}></i>
+                    </button>
+                    <button className="linkedin">
+                        <i className="bi bi-linkedin" style={{ color: '#0A66C2', fontSize: '24px' }}></i>
+                    </button>
                 </div>
             </div>
 
             <div className="signup-note">
                 {userType === 'Student'
                     ? "Ask your teacher to create one for you"
-                    : <a href="/sign-up">Don't have an account? Sign Up</a>}
+                    : <Link to="./signup">Don't have an account? Sign Up</Link>}
             </div>
 
             <button onClick={handleUserSwitch} className="user-switch">
