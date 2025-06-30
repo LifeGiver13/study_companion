@@ -2,7 +2,7 @@
 
 body {
     margin: 0;
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'Monsterrat', sans-serif;
     background-color: #f5f5f5;
     display: flex;
     justify-content: center;
@@ -10,7 +10,7 @@ body {
     height: 100vh;
 }
 
-.login-container {
+.auth-container {
     background-color: white;
     padding: 2rem;
     border-radius: 12px;
@@ -20,21 +20,26 @@ body {
     text-align: center;
 }
 
-.login-container h2 {
+.auth-container h2 {
     margin-bottom: 0.5rem;
 }
 
-.login-container p {
+.auth-container p {
     color: #666;
     margin-bottom: 1.5rem;
 }
+.auth-form {
+    max-width: 400px;       
+    margin: 0 auto;        
+    padding: 2rem;
+}
 
-.login-form input {
+.auth-form input {
     width: 100%;
     padding: 0.75rem;
     margin-bottom: 1rem;
     border: 1px solid #ccc;
-    border-radius: 6px;
+    border-radius: 10px;
     font-size: 1rem;
 }
 
@@ -56,7 +61,7 @@ button[type="submit"] {
     color: white;
     border: none;
     font-size: 1rem;
-    border-radius: 6px;
+    border-radius: 8px;
     cursor: pointer;
     margin-bottom: 1rem;
 }
@@ -65,46 +70,38 @@ button[type="submit"]:hover {
     background-color: #0056b3;
 }
 
-.social-login {
+.social-auth {
     margin: 1.5rem 0;
 }
 
 .social-buttons {
     display: flex;
     justify-content: center;
-    gap: 1rem;
+    gap: 1.1rem;
     margin-top: 0.5rem;
+    width: 100%;
 }
 
 .social-buttons button {
-    width: 40px;
+    width: 100px;
     height: 40px;
-    border: none;
-    border-radius: 50%;
+    border: 1px rgb(122, 111, 111);
+    box-shadow: #444;
+    border-radius: 10px;
     font-size: 1.2rem;
     color: white;
     cursor: pointer;
 }
-
-.social-buttons .facebook {
-    background-color: #3b5998;
+.social-buttons:hover{
+    transform: matrix(2,3);
 }
-
-.social-buttons .google {
-    background-color: #db4437;
-}
-
-.social-buttons .linkedin {
-    background-color: #0077b5;
-}
-
 .signup-note {
     font-size: 0.95rem;
     color: #444;
     margin-top: 1rem;
 }
 
-.signup-note a {
+.auth-note a {
     color: #007bff;
     text-decoration: none;
 }
@@ -116,4 +113,9 @@ button[type="submit"]:hover {
     border: none;
     color: #007bff;
     cursor: pointer;
+}
+
+.auth-form input{
+    flex-direction: center;
+    margin-left: 1px;
 }

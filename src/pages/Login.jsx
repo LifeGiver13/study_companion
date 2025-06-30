@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
+import '../styles/Forms.css';
 import { Link } from 'react-router-dom';
-import '../Forms.css';
 
 export default function LoginForm() {
     const [userType, setUserType] = useState('Student');
@@ -26,6 +26,7 @@ export default function LoginForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log('Form submitted:', { userType, ...formData });
         setError('');
         setSuccess('');
         setLoading(true)
@@ -59,10 +60,10 @@ export default function LoginForm() {
     };
 
     return (
-        <div className="login-container">
+        <div className="auth-container">
             <h2>{userType} Login</h2>
             <p>Log in to GCE Study Companion</p>
-            <form onSubmit={handleSubmit} className="login-form">
+            <form onSubmit={handleSubmit} className="auth-form">
                 <input
                     type="text"
                     name="username"
@@ -80,6 +81,7 @@ export default function LoginForm() {
                     onChange={handleChange}
                     required
                 />
+
                 {error && <p style={{ color: 'red' }}>{error}</p>}
                 {success && <p style={{ color: 'green' }}>{success}</p>}
                 <div className="form-footer">
@@ -90,7 +92,7 @@ export default function LoginForm() {
                     {loading ? 'Logging in ...' : 'Get Started'}</button>
             </form>
 
-            <div className="social-login">
+            <div className="social-auth">
                 <p>Or sign in with</p>
                 <div className="social-buttons">
                     <button className="facebook">f</button>
@@ -102,8 +104,8 @@ export default function LoginForm() {
             <div className="signup-note">
                 {userType === 'Student'
                     ? "Ask your teacher to create one for you"
-                    : <a href="/sign-up">Don't have an account? Sign Up</a>}
-            </div>
+                    : <Link to="./signup">Don't have an account? Sign Up</Link>}
+    </div>
 
             <button onClick={handleUserSwitch} className="user-switch">
                 Switch to {userType === 'Student' ? 'Admin' : 'Student'} Login
