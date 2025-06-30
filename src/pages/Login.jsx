@@ -8,6 +8,13 @@ export default function LoginForm() {
         username: '',
         password: ''
     });
+    const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
+    const [loading, setLoading] = useState(false);
+
+
+
+
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -20,6 +27,9 @@ export default function LoginForm() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log('Form submitted:', { userType, ...formData });
+        setError('');
+        setSuccess('');
+        setLoading(true)
 
         try {
             const response = await fetch('https://gce-companion.vercel.app/api/auth/login', {
@@ -29,17 +39,24 @@ export default function LoginForm() {
                 },
                 body: JSON.stringify({ userType, ...formData })
             });
-            if (!response.ok) {
-                throw new Error('Login failed');
-            }
 
             const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.error || 'Login failed');
+            }
+
             localStorage.setItem('user', JSON.stringify(data));
             console.log('Login successful:', data);
-        } catch (error) {
-            console.error('Error during login:', error);
-        }
+            setSuccess('Login successful!');
 
+        } catch (err) {
+            console.error('Login error:', err.message);
+            setError(err.message);
+        }
+        finally {
+            setLoading(false)
+        }
     };
 
     return (
@@ -64,24 +81,23 @@ export default function LoginForm() {
                     onChange={handleChange}
                     required
                 />
+
+                {error && <p style={{ color: 'red' }}>{error}</p>}
+                {success && <p style={{ color: 'green' }}>{success}</p>}
                 <div className="form-footer">
-                    <a href="#">Forgot Password?</a>
+                    <Link to="/forgot-password">Forgot Password?</Link>
                 </div>
-                <button type="submit">Get Started</button>
+
+                <button type="submit" disabled={loading}>
+                    {loading ? 'Logging in ...' : 'Get Started'}</button>
             </form>
 
             <div className="social-auth">
                 <p>Or sign in with</p>
                 <div className="social-buttons">
-                    <button className="facebook">
-                        <i className="bi bi-facebook" style={{ color: '#3b5998', fontSize: '24px' }}></i>
-                    </button>
-                    <button className="google">
-                        <i className="bi bi-google" style={{ color: '#db4437', fontSize: '24px' }}></i>
-                    </button>
-                    <button className="linkedin">
-                        <i className="bi bi-linkedin" style={{ color: '#0A66C2', fontSize: '24px' }}></i>
-                    </button>
+                    <button className="facebook">f</button>
+                    <button className="google">G</button>
+                    <button className="linkedin">in</button>
                 </div>
             </div>
 
@@ -89,7 +105,7 @@ export default function LoginForm() {
                 {userType === 'Student'
                     ? "Ask your teacher to create one for you"
                     : <Link to="./signup">Don't have an account? Sign Up</Link>}
-            </div>
+    </div>
 
             <button onClick={handleUserSwitch} className="user-switch">
                 Switch to {userType === 'Student' ? 'Admin' : 'Student'} Login
