@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-
-
 import '../styles/Forms.css';
 
 export default function ForgotPassword() {
@@ -40,10 +38,10 @@ export default function ForgotPassword() {
     };
 
     return (
-        <div className="login-container">
+        <div className="auth-container">
             <h2>Reset Password</h2>
             <p>Enter your email to receive a password reset link</p>
-            <form onSubmit={handleSubmit} className="login-form">
+            <form onSubmit={handleSubmit} className="auth-form">
                 <input
                     type="email"
                     placeholder="Your email"
@@ -52,7 +50,7 @@ export default function ForgotPassword() {
                     required
                 />
                 <button type="submit">
-                    {loading ? 'Sending Email ...' : 'Send Reset Link'}</button>
+                    {loading ? 'Sending Email...' : 'Send Reset Link'}</button>
                 <div className="form-footer">
                     <Link to="/"> - Back to login.</Link>
                 </div>
