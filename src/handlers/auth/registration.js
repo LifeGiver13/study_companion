@@ -4,7 +4,7 @@ import { collection, where, addDoc, query, getDocs } from 'firebase/firestore';
 
 export async function register(req, res) {
     try {
-        const { username, email, phoneNumber, password,  } = req.body;
+        const { username, email, phoneNumber, password  } = req.body;
         if (!username || !email || !password || !phoneNumber) return res.status(400).json({ error: 'All fields are required' })
 
 
@@ -33,7 +33,7 @@ export async function register(req, res) {
             docId: docRef.id
         });
 
-    } catch (error) {
+} catch (error) {
         console.error('Error registering user:', error.message);
         res.status(500).json({ error: 'Failed to create user' });
     }
