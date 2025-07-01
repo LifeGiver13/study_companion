@@ -6,8 +6,6 @@ import ForgotPassword from './pages/ForgotPassword';
 
 export default function App() {
   return (
-    <div className="app-container">
-      <h1>GCE Study Companion</h1>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LoginForm />} />
@@ -16,6 +14,5 @@ export default function App() {
 
         </Routes>
       </BrowserRouter>
-    </div>
   );
 }

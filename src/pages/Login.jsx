@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../styles/Forms.css';
 import { Link } from 'react-router-dom';
-
+import AuthTemplate from '../components/AuthFormTemplate';
 export default function LoginForm() {
     const [userType, setUserType] = useState('Student');
     const [formData, setFormData] = useState({
@@ -62,8 +62,8 @@ export default function LoginForm() {
 
 
     return (
-        <div className="auth-wrapper">
-            <div className="auth-container">
+        <AuthTemplate>
+            <div className="form-content">
                 <h2>{userType} Login</h2>
                 <p>Log in to GCE Study Companion</p>
                 <form onSubmit={handleSubmit} className="auth-form">
@@ -86,29 +86,29 @@ export default function LoginForm() {
 
                     {error && <p style={{ color: 'red' }}>{error}</p>}
                     {success && <p style={{ color: 'green' }}>{success}</p>}
-
                     <div className="form-footer">
+                      
                         <Link to="/forgot-password">Forgot Password?</Link>
                     </div>
 
                     <button type="submit" disabled={loading}>
-                        {loading ? 'Logging in ...' : 'Get Started'}
-                    </button>
+                        {loading ? 'Logging in ...' : 'Get Started'}</button>
                 </form>
 
-                <div className="social-login">
-                    <p>Or sign in with</p>
-                    <div className="social-buttons">
-                        <button className="facebook">
-                            <i className="bi bi-facebook" style={{ color: '#3b5998', fontSize: '24px' }}></i>
-                        </button>
-                        <button className="google">
-                            <i className="bi bi-google" style={{ color: '#db4437', fontSize: '24px' }}></i>
-                        </button>
-                        <button className="linkedin">
-                            <i className="bi bi-linkedin" style={{ color: '#0A66C2', fontSize: '24px' }}></i>
-                        </button>
-                    </div>
+                    <div className="social-auth">
+                        <p>Or sign in with</p>
+                        <div className="social-buttons">
+                            <button className="facebook">
+                                <i className="bi bi-facebook" style={{ color: '#3b5998', fontSize: '24px' }}></i>
+                            </button>
+                            <button className="google">
+                                <i className="bi bi-google" style={{ color: '#db4437', fontSize: '24px' }}></i>
+                            </button>
+                            <button className="linkedin">
+                                <i className="bi bi-linkedin" style={{ color: '#0A66C2', fontSize: '24px' }}></i>
+                            </button>
+                        </div>
+
                 </div>
 
                 <div className="signup-note">
@@ -122,9 +122,6 @@ export default function LoginForm() {
                 </button>
             </div>
 
-            <div className="auth-image">
-                <img src="/bro.jpeg" alt="Study Ompanion" />
-            </div>
-        </div>
+        </AuthTemplate>
     );
 }
