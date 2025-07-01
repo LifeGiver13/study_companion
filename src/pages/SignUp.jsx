@@ -9,7 +9,7 @@ export default function SignUpForm() {
         username: '',
         email: '',
         phoneNumber: '',
-        password: ''
+        ConfirmPassword: ''
     });
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -20,6 +20,11 @@ export default function SignUpForm() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log('Form submitted:', { ...formData });
+
+        if (formData.password !== formData.ConfirmPassword) {
+            console.error('Passwords do not match');
+            return; // Prevent submission if both passwords do not match
+        }
 
         try {
             const response = await fetch('https://gce-companion.vercel.app/api/auth/register', {

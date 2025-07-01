@@ -12,10 +12,6 @@ export default function LoginForm() {
     const [success, setSuccess] = useState('');
     const [loading, setLoading] = useState(false);
 
-
-
-
-
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
@@ -26,10 +22,9 @@ export default function LoginForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('Form submitted:', { userType, ...formData });
         setError('');
         setSuccess('');
-        setLoading(true)
+        setLoading(true);
 
         try {
             const response = await fetch('https://gce-companion.vercel.app/api/auth/login', {
@@ -46,18 +41,25 @@ export default function LoginForm() {
                 throw new Error(data.error || 'Login failed');
             }
 
-            localStorage.setItem('user', JSON.stringify(data));
-            console.log('Login successful:', data);
-            setSuccess('Login successful!');
+            // Build the structured object
+            const userPayload = {
+                status: 200,
+                data: {
+                    username: data.user.username,
+                    email: data.user.email
+                }
+            };
 
+            localStorage.setItem('user', JSON.stringify(userPayload));
+            localStorage.setItem('isLoggedIn', 'true');
+            setSuccess('Login successful!');
         } catch (err) {
-            console.error('Login error:', err.message);
             setError(err.message);
-        }
-        finally {
-            setLoading(false)
+        } finally {
+            setLoading(false);
         }
     };
+
 
     return (
         <AuthTemplate>
@@ -73,7 +75,6 @@ export default function LoginForm() {
                         onChange={handleChange}
                         required
                     />
-
                     <input
                         type="password"
                         name="password"
@@ -86,6 +87,7 @@ export default function LoginForm() {
                     {error && <p style={{ color: 'red' }}>{error}</p>}
                     {success && <p style={{ color: 'green' }}>{success}</p>}
                     <div className="form-footer">
+                      
                         <Link to="/forgot-password">Forgot Password?</Link>
                     </div>
 
@@ -106,6 +108,7 @@ export default function LoginForm() {
                                 <i className="bi bi-linkedin" style={{ color: '#0A66C2', fontSize: '24px' }}></i>
                             </button>
                         </div>
+
                 </div>
 
                 <div className="signup-note">
@@ -121,5 +124,4 @@ export default function LoginForm() {
 
         </AuthTemplate>
     );
-};
-
+}
