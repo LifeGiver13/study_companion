@@ -38,7 +38,7 @@ export default function ForgotPassword() {
     };
 
     return (
-        <div className="auth-container">
+                    <div className='reset-container'>
             <h2>Reset Password</h2>
             <p>Enter your email to receive a password reset link</p>
             <form onSubmit={handleSubmit} className="auth-form">
@@ -57,5 +57,6 @@ export default function ForgotPassword() {
                 {message && <p style={{ marginTop: '10px', color: message.includes('✅') ? 'green' : 'red' }}>{message}</p>}
             </form>
         </div>
+
     );
 }
