@@ -48,7 +48,7 @@ export default function SignUpForm() {
     };
 
     return (
-<AuthTemplate>
+<AuthTemplate imgUrl='/classroomTree.png'>
   <div className="form-content">
     <h2>Admin Sign Up</h2>
     <p>Sign Up to GCE Study Companion</p>
@@ -97,7 +97,7 @@ export default function SignUpForm() {
     </form>
 
     <div className="social-auth">
-      <p>Or sign in with</p>
+      <p>Or Sign in With</p>
       <div className="social-buttons">
         <button className="facebook">
           <i className="bi bi-facebook" style={{ color: '#3b5998', fontSize: '24px' }}></i>
