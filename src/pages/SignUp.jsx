@@ -28,7 +28,7 @@ export default function SignUpForm() {
 
     if (formData.password !== formData.ConfirmPassword) {
       console.error('Passwords do not match');
-      return; // Prevent submission if both passwords do not match
+      return;
     }
 
     try {

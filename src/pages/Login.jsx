@@ -41,7 +41,6 @@ export default function LoginForm() {
                 throw new Error(data.error || 'Login failed');
             }
 
-            // Build the structured object
             const userPayload = {
                 status: 200,
                 data: {
@@ -87,7 +86,7 @@ export default function LoginForm() {
                     {error && <p style={{ color: 'red' }}>{error}</p>}
                     {success && <p style={{ color: 'green' }}>{success}</p>}
                     <div className="form-footer">
-                      
+
                         <Link to="/forgot-password">Forgot Password?</Link>
                     </div>
 
@@ -95,19 +94,19 @@ export default function LoginForm() {
                         {loading ? 'Logging in ...' : 'Get Started'}</button>
                 </form>
 
-                    <div className="social-auth">
-                        <p>Or sign in with</p>
-                        <div className="social-buttons">
-                            <button className="facebook">
-                                <i className="bi bi-facebook" style={{ color: '#3b5998', fontSize: '24px' }}></i>
-                            </button>
-                            <button className="google">
-                                <i className="bi bi-google" style={{ color: '#db4437', fontSize: '24px' }}></i>
-                            </button>
-                            <button className="linkedin">
-                                <i className="bi bi-linkedin" style={{ color: '#0A66C2', fontSize: '24px' }}></i>
-                            </button>
-                        </div>
+                <div className="social-auth">
+                    <p>Or sign in with</p>
+                    <div className="social-buttons">
+                        <button className="facebook">
+                            <i className="bi bi-facebook" style={{ color: '#3b5998', fontSize: '24px' }}></i>
+                        </button>
+                        <button className="google">
+                            <i className="bi bi-google" style={{ color: '#db4437', fontSize: '24px' }}></i>
+                        </button>
+                        <button className="linkedin">
+                            <i className="bi bi-linkedin" style={{ color: '#0A66C2', fontSize: '24px' }}></i>
+                        </button>
+                    </div>
 
                 </div>
 
