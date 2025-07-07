@@ -44,16 +44,18 @@ export default function LoginForm() {
                 body: JSON.stringify({ userType, ...formData })
             });
 
-            const data = await response.json();
+            const data = await response.json(); // Always get response body first
 
             if (!response.ok) {
-                setOverlay({ header: 'Error', message: errorData?.error || 'Login failed.', show: true, isSuccess: false }
-                )
-                setTimeout(() => setOverlay({ ...overlay, show: false }), 3000);
-                throw new Error(errorData?.error || 'Login failed');
+                setOverlay({
+                    header: 'Error',
+                    message: data?.error || 'Login failed.',
+                    show: true,
+                    isSuccess: false
+                });
+                setTimeout(() => setOverlay(prev => ({ ...prev, show: false })), 3000);
+                return;
             }
-
-            
 
             const userPayload = {
                 status: 200,
@@ -65,21 +67,29 @@ export default function LoginForm() {
 
             localStorage.setItem('user', JSON.stringify(userPayload));
             localStorage.setItem('isLoggedIn', 'true');
+
             setOverlay({
                 header: 'Success',
                 message: 'Login successful!',
                 show: true,
                 isSuccess: true
             });
-            setTimeout(() => setOverlay({ ...overlay, show: false }), 3000);
+            setTimeout(() => setOverlay(prev => ({ ...prev, show: false })), 3000);
 
             setSuccess('Login successful!');
         } catch (err) {
-            setError(err.message);
+            setOverlay({
+                header: 'Error',
+                message: err.message || 'Unexpected error occurred.',
+                show: true,
+                isSuccess: false
+            });
+            setTimeout(() => setOverlay(prev => ({ ...prev, show: false })), 3000);
         } finally {
             setLoading(false);
         }
     };
+
 
 
     return (
