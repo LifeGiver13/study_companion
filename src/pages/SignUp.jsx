@@ -3,19 +3,27 @@ import '../styles/Forms.css';
 import '../components/FormHandler'
 import AuthTemplate from '../components/AuthFormTemplate';
 import { Link } from 'react-router-dom';
+import OverlayBox from '../components/MessageBox';
 
 export default function SignUpForm() {
   const [formData, setFormData] = useState({
     username: '',
     email: '',
     phoneNumber: '',
-    confirmPassword: ''
+    password: '',
+    confirmPassword: '',
+    role: 'student',
+    status: 'active'
   });
+
   const [overlay, setOverlay] = useState({
     show: false,
     message: false,
-    header: false
+    header: false,
+    isSuccess: false
   })
+
+  const [loading, setLoading] = useState(false)
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -24,10 +32,13 @@ export default function SignUpForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true)
     console.log('Form submitted:', { ...formData });
 
-    if (formData.password !== formData.ConfirmPassword) {
+    if (formData.password !== formData.confirmPassword) {
       console.error('Passwords do not match');
+      setOverlay({ header: 'Error', message: 'Passwords do not match.', show: true });
+      setTimeout(() => setOverlay({ ...overlay, show: false }), 3000);
       return;
     }
 
@@ -37,27 +48,39 @@ export default function SignUpForm() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ ...formData })
+        body: JSON.stringify(formData)
       });
+
       if (!response.ok) {
-        setOverlay({ header: 'Error', message: 'Registration Failed.', show: true })
-        setTimeout(() => setOverlay({ ...overlay, show: false }), 3000); // auto-hide
-
-        throw new Error('Registration Failed failed');
-
+        const errorData = await response.json();
+        setOverlay({
+          header: 'Error', message: errorData?.error || 'Registration failed.', show: true, isSuccess: false
+        });
+        setTimeout(() => setOverlay({ ...overlay, show: false }), 3000);
+        throw new Error(errorData?.error || 'Registration failed');
       }
 
       const data = await response.json();
-      localStorage.setItem('user', JSON.stringify(data));
-      console.log('Registration successful :', data);
-      setOverlay({ header: 'Success', message: 'Your account has been created.', show: true })
+
+      const { data: user, docId } = data;
+      localStorage.setItem('user', JSON.stringify({ ...user, docId }));
+
+      console.log('Registration successful:', { ...user, docId });
+
+      setOverlay({
+        header: 'Success',
+        message: 'Your account has been created.',
+        show: true,
+        isSuccess: true
+      });
       setTimeout(() => setOverlay({ ...overlay, show: false }), 3000);
 
     } catch (error) {
-      console.error('An Error occured during registration:', error);
-
+      console.error('An error occurred during registration:', error.message);
     }
-
+    finally {
+      setLoading(false)
+    }
   };
 
   return (
@@ -106,15 +129,12 @@ export default function SignUpForm() {
             onChange={handleChange}
             required
           />
-          <button type="submit">Sign Up</button>
+          <button type="submit" disabled={loading}>
+            {loading ? 'Signing Up ...' : 'Sign Up'}</button>
 
           {overlay.message && overlay.show && (
-            <div className='message-box'>
-              <div>
-                <div className='message-header'>{overlay.header}</div>
-                <div className='message-content'>{overlay.message}</div>
-              </div>
-            </div>
+            <OverlayBox header={overlay.header} message={overlay.message} isSuccess={overlay.isSuccess} />
+
           )}
         </form>
 

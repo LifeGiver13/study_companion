@@ -2,8 +2,6 @@ import { db } from '../firebase.js';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import bcrypt from 'bcrypt';
 
-
-// Route to handle user login
  export async function login (req, res) {
   try {
     const { username, password } = req.body;

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import '../styles/Forms.css';
 import { Link } from 'react-router-dom';
 import AuthTemplate from '../components/AuthFormTemplate';
+import OverlayBox from '../components/MessageBox';
 export default function LoginForm() {
     const [userType, setUserType] = useState('Student');
     const [formData, setFormData] = useState({
@@ -11,6 +12,13 @@ export default function LoginForm() {
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
     const [loading, setLoading] = useState(false);
+
+    const [overlay, setOverlay] = useState({
+        header: '',
+        message: '',
+        show: false,
+        isSuccess: false
+    })
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -38,7 +46,10 @@ export default function LoginForm() {
             const data = await response.json();
 
             if (!response.ok) {
-                throw new Error(data.error || 'Login failed');
+                setOverlay({ header: 'Error', message: errorData?.error || 'Login failed.', show: true, isSuccess: false }
+                )
+                setTimeout(() => setOverlay({ ...overlay, show: false }), 3000);
+                throw new Error(errorData?.error || 'Login failed');
             }
 
             const userPayload = {
@@ -51,13 +62,16 @@ export default function LoginForm() {
 
             localStorage.setItem('user', JSON.stringify(userPayload));
             localStorage.setItem('isLoggedIn', 'true');
+            setOverlay({ header: "Success", message: "Login Successful", show: true, isSuccesss: true })
+            setTimeout(() => setOverlay({ ...overlay, show: false }), 3000);
+
             setSuccess('Login successful!');
         } catch (err) {
             setError(err.message);
         } finally {
             setLoading(false);
         }
-    };
+    }
 
 
     return (
@@ -93,7 +107,10 @@ export default function LoginForm() {
                     <button type="submit" disabled={loading}>
                         {loading ? 'Logging in ...' : 'Get Started'}</button>
                 </form>
+                {overlay.message && overlay.show && (
+                    <OverlayBox header={overlay.header} message={overlay.message} isSuccess={overlay.isSuccess} />
 
+                )}
                 <div className="social-auth">
                     <p>Or sign in with</p>
                     <div className="social-buttons">
