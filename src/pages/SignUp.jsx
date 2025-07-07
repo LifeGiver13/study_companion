@@ -84,7 +84,7 @@ export default function SignUpForm() {
   };
 
   return (
-    <AuthTemplate imgUrl='/classroomTree.png'>
+    <AuthTemplate imgUrl='/register.jpeg'>
       <div className="form-content">
         <h2>Admin Sign Up</h2>
         <p>Sign Up to GCE Study Companion</p>
