@@ -6,7 +6,7 @@ const OverlayBox = ({ header, message, isSuccess }) => {
   return (
     <div className="overlay-container">
       <div className="overlay-box">
-        <h2 className="overlay-header">{header}</h2>
+        <h1 className="overlay-header">{header}</h1>
 
         <div className={`overlay-icon ${isSuccess ? 'success' : 'error'}`}>
           {isSuccess ? '✓' : '✕'}
