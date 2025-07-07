@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import '../styles/Forms.css';
-import '../components/FormHandler'
 import AuthTemplate from '../components/AuthFormTemplate';
 import { Link } from 'react-router-dom';
 
@@ -9,59 +8,59 @@ export default function SignUpForm() {
     username: '',
     email: '',
     phoneNumber: '',
+    password: '',
     confirmPassword: ''
   });
+
   const [overlay, setOverlay] = useState({
     show: false,
-    message: false,
-    header: false
-  })
+    message: '',
+    header: ''
+  });
+
+  const [loading, setLoading] = useState(false);
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form submitted:', { ...formData });
 
-    if (formData.password !== formData.ConfirmPassword) {
-      console.error('Passwords do not match');
+    if (formData.password !== formData.confirmPassword) {
+      setOverlay({ header: 'Error', message: 'Passwords do not match.', show: true });
+      setTimeout(() => setOverlay({ ...overlay, show: false }), 3000);
       return;
     }
+
+    setLoading(true);
+    setOverlay({ ...overlay, show: false });
 
     try {
       const response = await fetch('https://gce-companion.vercel.app/api/auth/register', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...formData })
       });
-      if (!response.ok) {
-        setOverlay({ header: 'Error', message: 'Registration Failed.', show: true })
-        setTimeout(() => setOverlay({ ...overlay, show: false }), 3000); // auto-hide
-
-        throw new Error('Registration Failed failed');
-
-      }
 
       const data = await response.json();
-      localStorage.setItem('user', JSON.stringify(data));
-      console.log('Registration successful :', data);
-      setOverlay({ header: 'Success', message: 'Your account has been created.', show: true })
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Registration failed');
+      }
+
+      setOverlay({ header: 'Success', message: 'Your account has been created.', show: true });
       setTimeout(() => setOverlay({ ...overlay, show: false }), 3000);
-
     } catch (error) {
-      console.error('An Error occured during registration:', error);
-
+      setOverlay({ header: 'Error', message: error.message, show: true });
+      setTimeout(() => setOverlay({ ...overlay, show: false }), 3000);
+    } finally {
+      setLoading(false);
     }
-
   };
 
   return (
-    <AuthTemplate imgUrl='/classroomTree.png'>
+    <AuthTemplate imgUrl='/register.jpeg'>
       <div className="form-content">
         <h2>Admin Sign Up</h2>
         <p>Sign Up to GCE Study Companion</p>
@@ -106,13 +105,15 @@ export default function SignUpForm() {
             onChange={handleChange}
             required
           />
-          <button type="submit">Sign Up</button>
+          <button type="submit" disabled={loading}>
+            {loading ? 'Signing up...' : 'Sign Up'}
+          </button>
 
           {overlay.message && overlay.show && (
-            <div className='message-box'>
+            <div className="message-box">
               <div>
-                <div className='message-header'>{overlay.header}</div>
-                <div className='message-content'>{overlay.message}</div>
+                <div className="message-header">{overlay.header}</div>
+                <div className="message-content">{overlay.message}</div>
               </div>
             </div>
           )}
@@ -134,10 +135,9 @@ export default function SignUpForm() {
         </div>
 
         <div className="signup-note">
-          <Link to='/'>Already have an account? <i>Login</i></Link>
+          <Link to="/">Already have an account? <i>Login</i></Link>
         </div>
       </div>
     </AuthTemplate>
   );
-};
-
+}
