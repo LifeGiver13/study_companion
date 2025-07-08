@@ -3,16 +3,22 @@ import { Link } from 'react-router-dom';
 import '../styles/Forms.css';
 import AuthTemplate from '../components/AuthFormTemplate';
 import EmailSentConfirmation from '../components/EmailSentConfirmation';
+import OverlayBox from '../components/MessageBox';
 
 export default function ForgotPassword() {
     const [email, setEmail] = useState('');
     const [emailSent, setEmailSent] = useState(false);
-    const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
+    const [overlay, setOverlay] = useState({
+        show: false,
+        header: '',
+        message: '',
+        isSuccess: false
+    });
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setError('');
+        setOverlay({ show: false, header: '', message: '', isSuccess: false });
         setLoading(true);
 
         try {
@@ -32,7 +38,15 @@ export default function ForgotPassword() {
 
             setEmailSent(true);
         } catch (err) {
-            setError(err.message);
+            setOverlay({
+                show: true,
+                header: 'Reset Failed',
+                message: err.message,
+                isSuccess: false
+            });
+            setTimeout(() => {
+                setOverlay({ show: false, header: '', message: '', isSuccess: false });
+            }, 3000);
         } finally {
             setLoading(false);
         }
@@ -60,11 +74,16 @@ export default function ForgotPassword() {
                         <div className="form-footer">
                             <Link to="/"> - Back to login.</Link>
                         </div>
-                        {error && <p style={{ marginTop: '10px', color: 'red' }}>{error}</p>}
                     </form>
-                </div >
-            )
-            }
-        </AuthTemplate >
+                    {overlay.show && (
+                        <OverlayBox
+                            header={overlay.header}
+                            message={overlay.message}
+                            isSuccess={overlay.isSuccess}
+                        />
+                    )}
+                </div>
+            )}
+        </AuthTemplate>
     );
 }
