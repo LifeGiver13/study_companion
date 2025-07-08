@@ -7,7 +7,6 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "start": "node server/app.js"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
